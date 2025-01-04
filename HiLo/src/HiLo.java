@@ -22,7 +22,7 @@ public class HiLo {
 			while(guess != theNumber) {
 				
 				System.out.println("Guess a number between -100 and 100: ");
-				guess = scan.nextInt();;
+				guess = scan.nextInt();
 				if(guess < theNumber) {
 					System.out.println(guess + " is too low. Try again.");
 				} else if(guess > theNumber) {
