@@ -13,14 +13,15 @@ public class HiLo {
 		
 		do {
 			
-			// Create a random number for the user to guess
-			int theNumber = (int) (Math.random()*100 +1); //add 1
+			// Create a random number for the user to guess between -100 and 100
+			int theNumber = (int) (Math.random()*200 +1); //add 1 to get numbers 1 to 200
+			theNumber = theNumber - 100; // subtract 100 to get a range of -100 to 100
 			// System.out.println(theNumber);
 			
 			int guess = 0;
 			while(guess != theNumber) {
 				
-				System.out.println("Guess a number between 1 and 100: ");
+				System.out.println("Guess a number between -100 and 100: ");
 				guess = scan.nextInt();
 				if(guess < theNumber) {
 					System.out.println(guess + " is too low. Try again.");
