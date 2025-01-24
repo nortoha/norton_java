@@ -16,7 +16,10 @@ public class GuessingGame extends JFrame {
 	
 	private JTextField txtGuess;
 	private JLabel lblOutput;
+	private JButton btnGuessButton;
+	private JButton btnPlayAgain;
 	private int theNumber;
+	private int triesRemaining = 7;
 	
 	/**
 	 * Constructor, create game GUI
@@ -50,14 +53,14 @@ public class GuessingGame extends JFrame {
 		getContentPane().add(txtGuess);
 		txtGuess.setColumns(10);
 		
-		JButton btnGuessButton = new JButton("Guess!");
+		btnGuessButton = new JButton("Guess!");
 		btnGuessButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				checkGuess();
 			}
 		});
 		btnGuessButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnGuessButton.setBounds(175, 163, 85, 21);
+		btnGuessButton.setBounds(175, 151, 85, 21);
 		getContentPane().add(btnGuessButton);
 		
 		lblOutput = new JLabel("Enter a number above and click Guess!");
@@ -65,6 +68,18 @@ public class GuessingGame extends JFrame {
 		lblOutput.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblOutput.setBounds(10, 213, 416, 28);
 		getContentPane().add(lblOutput);
+		
+		btnPlayAgain = new JButton("Play Again!");
+		btnPlayAgain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newGame();
+			}
+		});
+		btnPlayAgain.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnPlayAgain.setBounds(158, 151, 120, 21);
+		getContentPane().add(btnPlayAgain);
+		// hide button till we need it
+		btnPlayAgain.setVisible(false);
 	}
 
 	/**
@@ -74,16 +89,27 @@ public class GuessingGame extends JFrame {
 		
 		String guessText = txtGuess.getText();
 		String message = "";
+		
 		try {
 			int guess = Integer.parseInt(guessText);
-			if(guess < theNumber) {
-				message = guess + " is too low. Try again.";
-			} else if(guess > theNumber) {
-				message = guess + " is too high. Try again.";
+			if(triesRemaining > 0) {
+				if(guess < theNumber) {
+					message = guess + " is too low. You have " + triesRemaining + " left.";
+					triesRemaining--;
+				} else if(guess > theNumber) {
+					message = guess + " is too high. You have " + triesRemaining + " left.";
+					triesRemaining--;
+				} else {
+					message = guess + " is correct. You win!";
+					btnPlayAgain.setVisible(true);
+					btnGuessButton.setVisible(false);
+				}	
 			} else {
-				message = guess + " is correct. You win!";
-				newGame();
+				message = "You have no tries remaining. You lose!";
+				btnPlayAgain.setVisible(true);
+				btnGuessButton.setVisible(false);
 			}
+			
 		}catch (Exception e) {
 			// display error message
 			message = "Enter a whole number between 1 and 100.";
@@ -103,6 +129,9 @@ public class GuessingGame extends JFrame {
 	 */
 	public void newGame() {
 		theNumber = (int) (Math.random() * 100 + 1);
+		btnGuessButton.setVisible(true);
+		btnPlayAgain.setVisible(false);
+		lblOutput.setText("");
 	}
 	public static void main(String[] args) {
 		GuessingGame theGame = new GuessingGame();
