@@ -21,6 +21,7 @@ import java.awt.Color;
 
 public class MadLibsGame extends JFrame {
 	
+	private JComboBox cboxTheme;
 	private JTextField txtAdj1;
 	private JTextField txtAdj2;
 	private JTextField txtAdj3;
@@ -39,6 +40,7 @@ public class MadLibsGame extends JFrame {
 	private JLabel lblYourMadlib;
 	private JButton btnNewButton;
 	private JTextArea textAreaOutput;
+	private JTextArea textArea;
 	
 	public MadLibsGame() {
 		setTitle("Holly's MadLibs App");
@@ -63,10 +65,10 @@ public class MadLibsGame extends JFrame {
 		getContentPane().add(txtAdj1);
 		txtAdj1.setColumns(10);
 		
-		JComboBox cboxTheme = new JComboBox();
+		cboxTheme = new JComboBox();
 		cboxTheme.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		cboxTheme.setBounds(366, 75, 155, 21);
-		cboxTheme.addItem("Vacations");
+		cboxTheme.addItem("Vacation");
 		cboxTheme.addItem("Ancient History");
 		getContentPane().add(cboxTheme);
 		
@@ -92,6 +94,10 @@ public class MadLibsGame extends JFrame {
 		lblEnterNouns.setFont(new Font("Trebuchet MS", Font.PLAIN, 18));
 		lblEnterNouns.setBounds(22, 185, 173, 35);
 		getContentPane().add(lblEnterNouns);
+		
+		textArea = new JTextArea();
+		textArea.setBounds(0, 0, 5, 22);
+		getContentPane().add(textArea);
 		
 		txtNoun1 = new JTextField();
 		txtNoun1.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -226,16 +232,27 @@ public class MadLibsGame extends JFrame {
 	}
 
 	protected void generate() {
-		String output = "A vacation is when you take a trip to some "+ txtAdj1.getText() 
-				+ " place with your "+ txtAdj2.getText() +" family.  Usually you go to some place that is near a/an "+ txtNoun1.getText() 
-				+ " or up on a/an "+ txtNoun2.getText() +".\r\n"
-				+ "A good vacation place is one where you can ride " + txtPluralNoun1.getText() +" or play "+ txtGame.getText() 
-				+ " or go hunting for " + txtPluralNoun2.getText() + ".  I like to spend my time " + txtVerb1.getText() 
-				+ " or " + txtVerb2.getText() + ".\r\n  Last summer, my little brother fell in a/an "+ txtNoun3.getText() 
-				+ " and got poison " + txtPlant.getText() + " all over his " + txtBodyPart.getText() 
-				+ ".\r\n   Parents need vacations more than kids because parents are always very " + txtAdj3.getText() 
-				+ " and because they have to work " + txtNumber.getText() + " hours every day all year making enough " + txtPluralNoun3.getText() 
-				+ " to pay for the vacation.";
+		
+		String selectedTheme = (String) cboxTheme.getSelectedItem();
+		String output = "";
+		
+		if(selectedTheme.equalsIgnoreCase("Vacations")) {
+			output = "A vacation is when you take a trip to some "+ txtAdj1.getText() 
+					+ " place with your "+ txtAdj2.getText() +" family.  Usually you go to some place that is near a/an "+ txtNoun1.getText() 
+					+ " or up on a/an "+ txtNoun2.getText() +".\r\n"
+					+ "A good vacation place is one where you can ride " + txtPluralNoun1.getText() +" or play "+ txtGame.getText() 
+					+ " or go hunting for " + txtPluralNoun2.getText() + ".  I like to spend my time " + txtVerb1.getText() 
+					+ " or " + txtVerb2.getText() + ".\r\n  Last summer, my little brother fell in a/an "+ txtNoun3.getText() 
+					+ " and got poison " + txtPlant.getText() + " all over his " + txtBodyPart.getText() 
+					+ ".\r\n   Parents need vacations more than kids because parents are always very " + txtAdj3.getText() 
+					+ " and because they have to work " + txtNumber.getText() + " hours every day all year making enough " + txtPluralNoun3.getText() 
+					+ " to pay for the vacation.";
+			
+		} else if(selectedTheme.equalsIgnoreCase("Ancient History")) {
+			
+			output = "some story about history";
+		}
+		
 		textAreaOutput.setText(output);		
 	}
 
