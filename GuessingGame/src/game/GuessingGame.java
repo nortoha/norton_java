@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class GuessingGame extends JFrame {
 	
@@ -25,6 +26,7 @@ public class GuessingGame extends JFrame {
 	 * Constructor, create game GUI
 	 */
 	public GuessingGame() {
+		getContentPane().setBackground(new Color(164, 211, 225));
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Holly's Hi-Lo Guessing Game");
@@ -94,12 +96,15 @@ public class GuessingGame extends JFrame {
 			int guess = Integer.parseInt(guessText);
 			if(triesRemaining > 0) {
 				if(guess < theNumber) {
+					//numTries++; 
 					message = guess + " is too low. You have " + triesRemaining + " left.";
 					triesRemaining--;
 				} else if(guess > theNumber) {
+					//numTries++; 
 					message = guess + " is too high. You have " + triesRemaining + " left.";
 					triesRemaining--;
 				} else {
+//					message = guess + " is correct. You win with " + numTries +" tries!";
 					message = guess + " is correct. You win!";
 					btnPlayAgain.setVisible(true);
 					btnGuessButton.setVisible(false);
